@@ -1,4 +1,4 @@
-﻿# GeoPilot AI â€” HERE Edition 4.3.1
+# GeoPilot AI â€” HERE Edition 4.3.1
 
 GeoPilot AI is a conversational geospatial travel and EV planning application built around a persistent **Trip Context**.
 
@@ -162,6 +162,6 @@ See `FIX_NOTES_V4.3.1.md` for the latest patch and validation status.
 
 Watch the GeoPilot AI demo:
 
-[▶ Watch GeoPilot AI Demo](assets/Recording-2.mp4)
+[![Watch GeoPilot AI Demo](https://img.shields.io/badge/Watch-GeoPilot%20AI%20Demo-blue?style=for-the-badge)](assets/Recording-2.mp4)
 
-
+[Open or play the demo video](assets/Recording-2.mp4)
