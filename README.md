@@ -1,49 +1,51 @@
-# GeoPilot AI â€” HERE Edition 4.3.1
+# GeoPilot AI — HERE Edition 4.3.1
 
 GeoPilot AI is a conversational geospatial travel and EV planning application built around a persistent **Trip Context**.
 
-<CodeBlock language="markdown" editable>
-## ðŸŽ¬ GeoPilot AI â€” Demo Video
+## 🎬 Demo Video
 
-Watch GeoPilot AI in action.
-â–¶ Watch the GeoPilot AI Demo
-Download the demo video
-</CodeBlock>
+Watch GeoPilot AI in action:
+
+[![Watch GeoPilot AI Demo](https://img.shields.io/badge/Watch-GeoPilot%20AI%20Demo-blue?style=for-the-badge)](https://github.com/pratyush110022/GeoPilot-AI/blob/main/assets/Recording-2.mp4)
+
+[Open or download the demo video](https://github.com/pratyush110022/GeoPilot-AI/blob/main/assets/Recording-2.mp4)
+
+> Note: GitHub README does not reliably render a repository-stored MP4 as an inline video player. The links above open the video file on GitHub.
 
 ## Architecture
 
 ```text
 React + HERE Maps JavaScript SDK
-          â†“
+          ↓
       FastAPI /chat
-          â†“
+          ↓
    Persistent Trip Context
-          â†“
+          ↓
       AI Orchestrator
-      â”Œâ”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-      â”‚ Groq intent + response           â”‚
-      â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-           â†“
+      ┌────┴────────────────────────────┐
+      │ Groq intent + response          │
+      └────┬────────────────────────────┘
+           ↓
       MCP-ready tool registry
-      â”œâ”€â”€ HERE Geocoding & Search
-      â”œâ”€â”€ HERE Routing API v8
-      â”œâ”€â”€ HERE Search POIs
-      â”œâ”€â”€ OpenStreetMap / Overpass fallback
-      â”œâ”€â”€ HERE EV Charging Search
-      â”œâ”€â”€ GeoPilot EV Charging Dataset
-      â””â”€â”€ deterministic EV planner
+      ├── HERE Geocoding & Search
+      ├── HERE Routing API v8
+      ├── HERE Search POIs
+      ├── OpenStreetMap / Overpass fallback
+      ├── HERE EV Charging Search
+      ├── GeoPilot EV Charging Dataset
+      └── deterministic EV planner
 ```
 
 ### Provider responsibilities
 
-- **HERE Geocoding & Search** â€” India-first place resolution; this prevents ambiguous names such as `Goa` from being resolved to an unrelated country.
-- **HERE Routing API v8** â€” ordered multi-stop road routing and HERE Flexible Polyline decoding.
-- **HERE native EV routing** â€” attempted for EV trips with the user-declared vehicle context. If the HERE project/region does not accept the EV-specific request, GeoPilot safely falls back to a normal HERE road route and keeps its deterministic EV planner.
-- **HERE Search** â€” primary provider for restaurants, hotels, cafes, hospitals, pharmacies, fuel, supermarkets, convenience stores, tourist attractions and parking along routes or near locations. If HERE fails or returns no matches, GeoPilot tries live OpenStreetMap / Overpass records and labels that source separately.
-- **HERE EV Charging Search** â€” independent charger discovery near an arbitrary place.
-- **GeoPilot EV Charging Dataset** â€” authoritative portfolio dataset for route-aware charging candidates and deterministic battery/charging calculations.
-- **Open-Meteo** â€” optional current weather snapshots at route stops, the destination, and planned charging stops. No API key is required for the public endpoint; weather failures do not block trip planning. Weather is advisory, not an arrival-time forecast.
-- **Groq** â€” natural-language intent parsing and answer generation. It does not invent coordinates or charging facts.
+- **HERE Geocoding & Search** — India-first place resolution; this prevents ambiguous names such as `Goa` from being resolved to an unrelated country.
+- **HERE Routing API v8** — ordered multi-stop road routing and HERE Flexible Polyline decoding.
+- **HERE native EV routing** — attempted for EV trips with the user-declared vehicle context. If the HERE project/region does not accept the EV-specific request, GeoPilot safely falls back to a normal HERE road route and keeps its deterministic EV planner.
+- **HERE Search** — primary provider for restaurants, hotels, cafes, hospitals, pharmacies, fuel, supermarkets, convenience stores, tourist attractions and parking along routes or near locations. If HERE fails or returns no matches, GeoPilot tries live OpenStreetMap / Overpass records and labels that source separately.
+- **HERE EV Charging Search** — independent charger discovery near an arbitrary place.
+- **GeoPilot EV Charging Dataset** — authoritative portfolio dataset for route-aware charging candidates and deterministic battery/charging calculations.
+- **Open-Meteo** — optional current weather snapshots at route stops, the destination, and planned charging stops. No API key is required for the public endpoint; weather failures do not block trip planning. Weather is advisory, not an arrival-time forecast.
+- **Groq** — natural-language intent parsing and answer generation. It does not invent coordinates or charging facts.
 
 OpenStreetMap / Overpass is used as a live fallback for supported POI categories if HERE Search is unavailable or returns no matches. A map result is only rendered when a real provider record with coordinates is returned; LLM-generated place names or approximate coordinates are never inserted into the map-results card.
 
@@ -157,11 +159,3 @@ Trip Context remains in-memory for this portfolio release. The 9,683-station Geo
 - Structured UI cards for charging-stop details, weather, nearby places, and trip metrics.
 
 See `FIX_NOTES_V4.3.1.md` for the latest patch and validation status.
-
-## Demo Video
-
-Watch the GeoPilot AI demo:
-
-[![Watch GeoPilot AI Demo](https://img.shields.io/badge/Watch-GeoPilot%20AI%20Demo-blue?style=for-the-badge)](assets/Recording-2.mp4)
-
-[Open or play the demo video](assets/Recording-2.mp4)
